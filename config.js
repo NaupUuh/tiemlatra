@@ -36,7 +36,7 @@ window.SHOP = {
   /* ---- ĐƠN HÀNG ----
      null  = chế độ "gửi tay": khách bấm copy đơn → gửi Zalo/gọi shop.
      Có URL = POST JSON tới endpoint đó (Google Apps Script / API riêng). */
-  orderEndpoint: null,
+  orderEndpoint: "https://script.google.com/macros/s/AKfycbysVsr7ULKBYcDsCQ1G5ZUGN0HmeRbRCNZik0dJ-L1Eg4TzEpjoWuvAJBsAzXGQ3kgx/exec",
 
   /* =========================================================
      ⚠️  BLOCK DEMO — DỮ LIỆU XÃ HỘI VIẾT SẴN, KHÔNG PHẢI KHÁCH THẬT

@@ -317,10 +317,17 @@
       }
 
       if (CFG.orderEndpoint) {
+        // gui base64 de khong bao gio loi font tren moi thiet bi
+        var b64 = "";
+        try {
+          b64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+        } catch (e) { b64 = ""; }
+
+        var bodyData = b64 ? JSON.stringify({ b64: b64 }) : JSON.stringify(payload);
         fetch(CFG.orderEndpoint, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(payload)
+          body: bodyData
         }).then(function (r) { return r.json().catch(function () { return { ok: r.ok }; }); })
           .then(function (j) { if (j && j.ok === false) throw new Error("server"); done(); })
           .catch(fail);
