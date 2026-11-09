@@ -21,7 +21,7 @@
     var nowTxt = hasPrice(CFG.price) ? fmt(CFG.price) : "Liên hệ báo giá";
     $$("[data-price-slot]").forEach(function (el) {
       if (hasPrice(CFG.price)) {
-        el.innerHTML = fmt(CFG.price);
+        el.innerHTML = fmt(CFG.price) + '<small style="font-size:17px;font-weight:700">/hộp</small>';
       } else {
         el.textContent = nowTxt;
         el.style.fontSize = "26px";
@@ -41,7 +41,7 @@
     }
 
     var noteEl = $("[data-price-note]");
-    if (noteEl && hasPrice(CFG.price)) noteEl.textContent = "Đã bao gồm VAT. Miễn phí giao hàng toàn quốc.";
+    if (noteEl && hasPrice(CFG.price)) noteEl.textContent = "Combo 2 hộp 279.000đ · 3 hộp 389.000đ. Miễn phí giao hàng toàn quốc – thanh toán khi nhận.";
 
     /* sticky bar */
     var sp = $("#stickyPrice"), so = $("#stickyOld");
@@ -50,6 +50,12 @@
   }
 
   /* ---------- 2. LIÊN HỆ: trống thì ẩn hẳn, không hiện "Đang cập nhật" ---------- */
+  function renderBrand() {
+    var b = (CFG.brand || "").trim();
+    if (!b) return;
+    $$("[data-brand]").forEach(function (el) { el.textContent = b; });
+  }
+
   function renderContact() {
     var tel = (CFG.hotline || "").trim();
     var zalo = (CFG.zalo || "").trim();
@@ -71,7 +77,7 @@
 
     // link fanpage
     var fbLink = $("#ftFacebookLink");
-    if (fbLink) { if (fb) { fbLink.href = fb; fbLink.hidden = false; } else fbLink.hidden = true; }
+    if (fbLink) { if (fb) { fbLink.href = fb; fbLink.hidden = false; var fl = $("#ftFacebook"); if (fl) fl.textContent = (CFG.facebookLabel || fb); } else fbLink.hidden = true; }
     var mailLink = $("#ftEmailLink");
     if (mailLink) { if (mail) { mailLink.href = "mailto:" + mail; mailLink.hidden = false; } else mailLink.hidden = true; }
 
@@ -530,6 +536,7 @@
 
   /* ---------- INIT ---------- */
   function init() {
+    renderBrand();
     renderPrices();
     renderContact();
     renderCombos();
